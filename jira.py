@@ -23,7 +23,7 @@ class GetJiraIssue:
 
     def execute_and_generate_message(self, args) -> str:
         path = f'/rest/api/3/issue/{self._key}'
-        url = f'{self._domain}{path}'
+        url = f'https://{self._domain}{path}'
 
         auth = HTTPBasicAuth(self._email, self._token)
 
