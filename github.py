@@ -32,6 +32,6 @@ class ListPullRequestFiles:
             'Authorization': f'Bearer {self._token}',
         }
 
-        response = requests.get(url, headers=headers)
+        response = requests.get(url=url, headers=headers)
 
         return response.text

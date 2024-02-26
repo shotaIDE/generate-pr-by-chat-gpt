@@ -2,6 +2,7 @@
 
 from ai import chat_with_function_calling_loop
 from github import ListPullRequestFiles
+from jira import GetJiraIssue
 
 
 class Reviewer2:
@@ -13,7 +14,11 @@ class Reviewer2:
             github_owner: str,
             github_repository: str, 
             github_number: str, 
-            github_token: str
+            github_token: str,
+            atlassian_domain: str,
+            jira_key: str,
+            jira_api_login_email: str,
+            jira_api_token: str,
     ):
         self.prompt = prompt
 
@@ -22,6 +27,13 @@ class Reviewer2:
             repository=github_repository,
             number=github_number,
             token=github_token,
+        )
+
+        self._get_jira_issue = GetJiraIssue(
+            domain=atlassian_domain,
+            key=jira_key,
+            api_login_email=jira_api_login_email,
+            api_token=jira_api_token,
         )
 
 
@@ -35,6 +47,7 @@ class Reviewer2:
             messages=system_message,
             functions=[
                 self._list_pull_request_files,
+                self._get_jira_issue,
             ],
             actor_name=self._actor_name,
         )
