@@ -20,7 +20,7 @@ def work():
         github_token=github_token,
     )
 
-    reviewer_comment = reviewer.work()
+    reviewer.work()
 
 
 if __name__ == "__main__":
