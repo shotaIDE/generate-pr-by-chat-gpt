@@ -40,8 +40,14 @@ def chat_with_function_calling_loop(messages, functions, actor_name: str):
             ][0]
             function_arguments = json.loads(function_call["arguments"])
 
+            print(f'System requires function call: "{function_name}" with arguments: {function_arguments}')
+
             function_response = function.execute_and_generate_message(
-                args=function_arguments)
+                args=function_arguments
+            )
+            
+            print('Function response\n')
+            print(function_response)
 
             messages.append(response_message)
 
