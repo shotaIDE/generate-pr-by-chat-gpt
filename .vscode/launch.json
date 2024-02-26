@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "Review",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "program": "${workspaceFolder}/create.py",
       "console": "integratedTerminal",
@@ -15,7 +15,7 @@
     },
     {
       "name": "Create PR",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "program": "${workspaceFolder}/create.py",
       "console": "integratedTerminal",
