@@ -29,7 +29,7 @@ class ListPullRequestFiles:
 
         headers = {
             'Accept': accept,
-            'Authorization': f'Bearer {self.token}',
+            'Authorization': f'Bearer {self._token}',
         }
 
         response = requests.get(url, headers=headers)
