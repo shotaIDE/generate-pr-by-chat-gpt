@@ -1,16 +1,28 @@
 # coding: utf-8
 
 from ai import chat_with_function_calling_loop
-from function import GetFilesList, ReadFile
+from github import ListPullRequestFiles
 
 
 class Reviewer2:
     _actor_name = 'Reviewer'
 
-    def __init__(self, prompt: str):
-        self._leader_comment = prompt
+    def __init__(
+            self,
+            github_owner: str,
+            github_repository: str, 
+            github_number: str, 
+            github_token: str
+    ):
+        self._list_pull_request_files = ListPullRequestFiles(
+            owner=github_owner,
+            repository=github_repository,
+            number=github_number,
+            token=github_token,
+        )
 
-    def work(self, programmer_comment: str) -> str:
+
+    def work(self) -> str:
         print('---------------------------------')
         print(f'{self._actor_name}: start to work')
 
@@ -24,15 +36,10 @@ class Reviewer2:
             "The request from the engineer leader is as follows.\n\n" + self._leader_comment
         )
 
-        if programmer_comment is not None:
-            system_message += "The request from the programmer is as follows.\n\n" + programmer_comment
-
         comment = chat_with_function_calling_loop(
             messages=system_message,
             functions=[
-                GetFilesList(),
-                ReadFile(),
-                self._record_lgtm,
+                self._list_pull_request_files,
             ],
             actor_name=self._actor_name,
         )

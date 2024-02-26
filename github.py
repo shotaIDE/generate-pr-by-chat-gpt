@@ -17,13 +17,14 @@ class ListPullRequestFiles:
     }
 
     def __init__(self, owner: str, repository: str, number: str, token: str) -> None:
-        self.owner = owner
-        self.repository = repository
-        self.number = number
-        self.token = token
+        self._owner = owner
+        self._repository = repository
+        self._number = number
+        self._token = token
 
     def execute_and_generate_message(self, args) -> str:
-        url = f'{__GITHUB_API_ORIGIN}/repos/{self.owner}/{self.repository}/pulls/{self.number}/files'
+        path = f'/repos/{self._owner}/{self._repository}/pulls/{self._number}/files'
+        url = f'{__GITHUB_API_ORIGIN}{path}'
         accept = 'application/vnd.github.diff'
 
         headers = {
