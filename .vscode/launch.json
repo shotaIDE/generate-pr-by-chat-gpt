@@ -2,10 +2,22 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run",
+      "name": "Review",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceFolder}/main.py",
+      "program": "${workspaceFolder}/create.py",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "PROMPT": "test.pyでprintしている文字列をランダムな文字列に書き換える"
+      },
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "name": "Create PR",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/create.py",
       "console": "integratedTerminal",
       "justMyCode": true,
       "env": {
