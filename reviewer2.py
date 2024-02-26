@@ -9,11 +9,14 @@ class Reviewer2:
 
     def __init__(
             self,
+            prompt: str,
             github_owner: str,
             github_repository: str, 
             github_number: str, 
             github_token: str
     ):
+        self.prompt = prompt
+
         self._list_pull_request_files = ListPullRequestFiles(
             owner=github_owner,
             repository=github_repository,
@@ -26,15 +29,7 @@ class Reviewer2:
         print('---------------------------------')
         print(f'{self._actor_name}: start to work')
 
-        system_message = (
-            "You are an excellent Python program reviewer. \n" +
-            "We review and thoroughly check the modifications made by programmers in response to requests from engineer leader, " +
-            "and identify any points that require additional attention and point them out to programmers in japanese.\n" +
-            "Once all checks have been completed and there are no issues found, ensure you execute the RecordLGTM function.\n" +
-            "When reviewing, please pay particular attention to the following points:\n" +
-            "- The revised code should have a natural design, with readable code that utilizes appropriate and understandable variable names.\n" +
-            "The request from the engineer leader is as follows.\n\n" + self._leader_comment
-        )
+        system_message = self.prompt
 
         comment = chat_with_function_calling_loop(
             messages=system_message,

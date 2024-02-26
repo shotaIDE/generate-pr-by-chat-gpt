@@ -10,10 +10,14 @@ def work():
     github_repository = os.environ.get('GITHUB_REPOSITORY')
     github_token = os.environ.get('GITHUB_TOKEN')
 
+    with open('reviewer-prompt.txt', encoding='utf-8') as f:
+        reviewer_prompt = f.read()
+
     github_pull_request_number_string = input('Please input the pull request number: ')
     github_pull_request_number = int(github_pull_request_number_string)
 
     reviewer = Reviewer2(
+        prompt=reviewer_prompt,
         github_owner=github_owner,
         github_repository=github_repository,
         github_number=github_pull_request_number,
