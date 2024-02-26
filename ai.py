@@ -9,6 +9,7 @@ import openai
 def chat_with_function_calling_loop(messages, functions, actor_name: str):
     openai.organization = os.environ.get('OPENAI_ORGANIZATION')
     openai.api_key = os.environ.get('OPENAI_TOKEN')
+    model_name = os.environ.get('OPENAI_MODEL_NAME')
 
     iteration = 0
     messages = [
@@ -21,7 +22,7 @@ def chat_with_function_calling_loop(messages, functions, actor_name: str):
 
     while iteration < 30:
         response = openai.ChatCompletion.create(
-            model="gpt-4-0613",
+            model=model_name,
             messages=messages,
             functions=function_definitions,
             function_call="auto",  # auto is default, but we'll be explicit

@@ -3,7 +3,7 @@
 
 import requests
 
-__GITHUB_API_ORIGIN = 'https://api.github.com'
+_GITHUB_API_ORIGIN = 'https://api.github.com'
 
 
 class ListPullRequestFiles:
@@ -24,7 +24,7 @@ class ListPullRequestFiles:
 
     def execute_and_generate_message(self, args) -> str:
         path = f'/repos/{self._owner}/{self._repository}/pulls/{self._number}/files'
-        url = f'{__GITHUB_API_ORIGIN}{path}'
+        url = f'{_GITHUB_API_ORIGIN}{path}'
         accept = 'application/vnd.github.diff'
 
         headers = {
