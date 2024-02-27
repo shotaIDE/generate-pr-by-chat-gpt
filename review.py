@@ -6,6 +6,8 @@ from reviewer2 import Reviewer2
 
 
 def work():
+    prompt_path = os.environ.get('REVIEWER_PROMPT_PATH')
+
     github_owner = os.environ.get('GITHUB_OWNER')
     github_repository = os.environ.get('GITHUB_REPOSITORY')
     github_token = os.environ.get('GITHUB_TOKEN')
@@ -14,7 +16,7 @@ def work():
     jira_api_login_email = os.environ.get('JIRA_API_LOGIN_EMAIL')
     jira_api_token = os.environ.get('JIRA_API_TOKEN')
 
-    with open('reviewer-prompt.txt', encoding='utf-8') as f:
+    with open(prompt_path, encoding='utf-8') as f:
         reviewer_prompt = f.read()
 
     github_pull_request_number_string = input('Please input the pull request number: ')
