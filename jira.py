@@ -1,6 +1,8 @@
 # coding: utf-8
 
 
+import json
+
 import requests
 from requests.auth import HTTPBasicAuth
 
@@ -34,4 +36,15 @@ class GetJiraIssue:
 
         response = requests.get(url=url, headers=headers, auth=auth)
 
-        return response.text
+        json_response = response.json()
+
+        summary = json_response['fields']['summary']
+        description = json_response['fields']['description']
+
+        summary_json = {
+            "summary": summary,
+            "description": description
+        }
+        json_text = json.dumps(summary_json, ensure_ascii=False)
+
+        return json_text
