@@ -43,12 +43,13 @@ class Reviewer2:
 
         system_message = self.prompt
 
+        pull_request_files = self._list_pull_request_files.execute_and_generate_message({})
+        jira_issue = self._get_jira_issue.execute_and_generate_message({})
+        user_message = f'GitHub diff: \n{pull_request_files}\n-\nJira details: \n\n{jira_issue}'
+
         comment = chat_with_function_calling_loop(
-            messages=system_message,
-            functions=[
-                self._list_pull_request_files,
-                self._get_jira_issue,
-            ],
+            system_message=system_message,
+            user_message=user_message,
             actor_name=self._actor_name,
         )
 
