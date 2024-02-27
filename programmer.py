@@ -32,7 +32,7 @@ class Programmer:
         # TODO: 現状の差分をシステムプロンプトに入れておく
 
         comment = chat_with_function_calling_loop(
-            messages=system_message,
+            user_message=system_message,
             functions=[
                 GetFilesList(),
                 ReadFile(),
