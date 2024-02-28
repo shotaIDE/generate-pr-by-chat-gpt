@@ -24,6 +24,8 @@ def work():
 
     jira_issue_key = input('Please input the Jira issue key: ')
 
+    confluence_page_id = input('Please input the Confluence page ID: ')
+
     reviewer = Reviewer2(
         prompt=reviewer_prompt,
         github_owner=github_owner,
@@ -34,6 +36,7 @@ def work():
         jira_key=jira_issue_key,
         jira_api_login_email=jira_api_login_email,
         jira_api_token=jira_api_token,
+        confluence_page_id=confluence_page_id,
     )
 
     reviewer.work()
