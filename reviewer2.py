@@ -1,8 +1,8 @@
 # coding: utf-8
 
 from ai import chat_with_function_calling_loop
+from atlassian import GetConfluencePage, GetJiraIssue
 from github import ListPullRequestFiles
-from jira import GetJiraIssue
 
 
 class Reviewer2:
@@ -19,6 +19,7 @@ class Reviewer2:
             jira_key: str,
             jira_api_login_email: str,
             jira_api_token: str,
+            confluence_page_id: str,
     ):
         self.prompt = prompt
 
@@ -36,6 +37,13 @@ class Reviewer2:
             api_token=jira_api_token,
         )
 
+        self._get_confluence_page = GetConfluencePage(
+            domain=atlassian_domain,
+            id=confluence_page_id,
+            api_login_email=jira_api_login_email,
+            api_token=jira_api_token,
+        )
+
 
     def work(self) -> str:
         print('---------------------------------')
@@ -45,7 +53,17 @@ class Reviewer2:
 
         pull_request_files = self._list_pull_request_files.execute_and_generate_message({})
         jira_issue = self._get_jira_issue.execute_and_generate_message({})
-        user_message = f'GitHub diff: \n{pull_request_files}\n-\nJira details: \n\n{jira_issue}'
+        confluence_page = self._get_confluence_page.execute_and_generate_message({})
+        user_message = (
+            'GitHub diff:\n'
+            f'{pull_request_files}\n'
+            '-\n'
+            'Jira details:\n'
+            f'{jira_issue}\n'
+            '-\n'
+            'Confluence page:\n'
+            f'{confluence_page}'
+        )
 
         comment = chat_with_function_calling_loop(
             system_message=system_message,
