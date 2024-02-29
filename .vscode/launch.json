@@ -24,6 +24,15 @@
         "PROMPT": "test.pyでprintしている文字列をランダムな文字列に書き換える"
       },
       "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "name": "Review specifications",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/review-specifications.py",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }
