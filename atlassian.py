@@ -66,6 +66,9 @@ class GetConfluencePage:
         self._token = api_token
 
     def execute_and_generate_message(self, args) -> str:
+        if self._id is None or self._id == '':
+            return json.dumps({}, ensure_ascii=False)
+
         path = f'/wiki/api/v2/pages/{self._id}?body-format=storage'
         url = f'https://{self._domain}{path}'
 
